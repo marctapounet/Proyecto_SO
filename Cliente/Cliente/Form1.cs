@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
             //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
             //al que deseamos conectarnos
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 9200);
+            IPEndPoint ipep = new IPEndPoint(direc, 9800);
 
 
             //Creamos el socket 
@@ -37,7 +37,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Conectado");
 
             }
-            catch (SocketException ex)
+            catch (SocketException)
             {
                 //Si hay excepcion imprimimos error y salimos del programa con return 
                 MessageBox.Show("No he podido conectar con el servidor");
@@ -65,7 +65,7 @@ namespace WindowsFormsApplication1
 
         private void Iniciar_Click(object sender, EventArgs e)
         {
-            string mensaje = "1/" + UsuarioBox.Text + "/" + ContraseñaBox.Text;
+            string mensaje = "2/" + UsuarioBox.Text + "/" + ContraseñaBox.Text;
             // Enviamos al servidor el nombre tecleado
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
@@ -107,33 +107,24 @@ namespace WindowsFormsApplication1
 
         private void Registrar_Click(object sender, EventArgs e)
         {
-            /* if (conexion == 1)
+            string mensaje = "3/" + UsuarioBox.Text + "/" + ContraseñaBox.Text + "/" + Confirmar_Contra.Text;
+            // Enviamos al servidor el nombre tecleado
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
+
+            //Recibimos la respuesta del servidor
+            byte[] msg3 = new byte[80];
+            server.Receive(msg3);
+            string mensajevuelta;
+            mensajevuelta = Encoding.ASCII.GetString(msg3).Split('\0')[0];
+            if (mensajevuelta == "Correctol")
             {
+                MessageBox.Show("Se ha registrado");
 
-                string nombre = UsuarioBox.Text;
-                string pass = ContraseñaBox.Text;
-                
-
-                if ((nombre == "") || (pass == ""))
-                {
-                    MessageBox.Show("Tienes que rellenar los 3 campos, si no no podrás registrarte.");
-                }
-
-                else
-                {
-                    nombre = nombre.Replace("/", "");
-                    pass = pass.Replace("/", "");
-                    
-
-                    string mensaje = "8/" + nombre + "/" + pass;
-
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-                    server.Send(msg);
-                }
             }
             else
-                MessageBox.Show("Antes de registrarte, tienes que conectarte primero.");
-        }*/
+                MessageBox.Show("Incorrecto");
+        
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -153,13 +144,25 @@ namespace WindowsFormsApplication1
             }
 
 
+            if (id_partidas.Checked)
+            {
+                string mensaje = "2/" + textBox5.Text + "/" + textBox4.Text;
+                // Enviamos al servidor el nombre tecleado
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
 
-
-
+                //Recibimos la respuesta del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
+                MessageBox.Show("id de las partidas es: " + mensaje);
+            }
 
 
 
         }
+
+        
     }
 }
 
