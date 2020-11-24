@@ -35,7 +35,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Iniciar = new System.Windows.Forms.Button();
-            this.Salir = new System.Windows.Forms.Button();
             this.Registrar = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.UserName = new System.Windows.Forms.CheckBox();
@@ -52,6 +51,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.conectados = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.edad = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.DameConectados = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // conectar
@@ -110,7 +115,7 @@
             // 
             // Iniciar
             // 
-            this.Iniciar.Location = new System.Drawing.Point(46, 229);
+            this.Iniciar.Location = new System.Drawing.Point(28, 262);
             this.Iniciar.Name = "Iniciar";
             this.Iniciar.Size = new System.Drawing.Size(75, 23);
             this.Iniciar.TabIndex = 13;
@@ -118,19 +123,9 @@
             this.Iniciar.UseVisualStyleBackColor = true;
             this.Iniciar.Click += new System.EventHandler(this.Iniciar_Click);
             // 
-            // Salir
-            // 
-            this.Salir.Location = new System.Drawing.Point(190, 229);
-            this.Salir.Name = "Salir";
-            this.Salir.Size = new System.Drawing.Size(75, 23);
-            this.Salir.TabIndex = 14;
-            this.Salir.Text = "Salir";
-            this.Salir.UseVisualStyleBackColor = true;
-            this.Salir.Click += new System.EventHandler(this.Salir_Click);
-            // 
             // Registrar
             // 
-            this.Registrar.Location = new System.Drawing.Point(110, 294);
+            this.Registrar.Location = new System.Drawing.Point(145, 264);
             this.Registrar.Name = "Registrar";
             this.Registrar.Size = new System.Drawing.Size(75, 23);
             this.Registrar.TabIndex = 15;
@@ -148,7 +143,7 @@
             // UserName
             // 
             this.UserName.AutoSize = true;
-            this.UserName.Location = new System.Drawing.Point(500, 229);
+            this.UserName.Location = new System.Drawing.Point(500, 226);
             this.UserName.Name = "UserName";
             this.UserName.Size = new System.Drawing.Size(298, 17);
             this.UserName.TabIndex = 18;
@@ -157,7 +152,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(500, 316);
+            this.button1.Location = new System.Drawing.Point(500, 332);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 19;
@@ -266,11 +261,59 @@
             this.label9.TabIndex = 31;
             this.label9.Text = "Minuto";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.conectados});
+            this.dataGridView1.Location = new System.Drawing.Point(23, 305);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(242, 97);
+            this.dataGridView1.TabIndex = 32;
+            // 
+            // conectados
+            // 
+            this.conectados.FillWeight = 200F;
+            this.conectados.HeaderText = "conectados";
+            this.conectados.Name = "conectados";
+            this.conectados.Width = 200;
+            // 
+            // edad
+            // 
+            this.edad.Location = new System.Drawing.Point(46, 226);
+            this.edad.Name = "edad";
+            this.edad.Size = new System.Drawing.Size(80, 20);
+            this.edad.TabIndex = 33;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(43, 210);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Edad";
+            // 
+            // DameConectados
+            // 
+            this.DameConectados.AutoSize = true;
+            this.DameConectados.Location = new System.Drawing.Point(500, 309);
+            this.DameConectados.Name = "DameConectados";
+            this.DameConectados.Size = new System.Drawing.Size(114, 17);
+            this.DameConectados.TabIndex = 35;
+            this.DameConectados.Text = "Dame Conectados";
+            this.DameConectados.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(941, 380);
+            this.ClientSize = new System.Drawing.Size(900, 414);
+            this.Controls.Add(this.DameConectados);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.edad);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -287,7 +330,6 @@
             this.Controls.Add(this.UserName);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Registrar);
-            this.Controls.Add(this.Salir);
             this.Controls.Add(this.Iniciar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -297,6 +339,7 @@
             this.Controls.Add(this.conectar);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,7 +354,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Iniciar;
-        private System.Windows.Forms.Button Salir;
         private System.Windows.Forms.Button Registrar;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox UserName;
@@ -328,6 +370,11 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conectados;
+        private System.Windows.Forms.TextBox edad;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox DameConectados;
     }
 }
 

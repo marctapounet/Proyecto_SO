@@ -8,15 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        delegate void DelegadoParaExcribir(string mensaje);
+        List<string> list = new List<string>();
         Socket server;
+        Thread atender;
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void conectar_Click_1(object sender, EventArgs e)
@@ -25,7 +31,7 @@ namespace WindowsFormsApplication1
             //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
             //al que deseamos conectarnos
             IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, 9800);
+            IPEndPoint ipep = new IPEndPoint(direc, 9617);
 
 
             //Creamos el socket 
@@ -43,7 +49,9 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("No he podido conectar con el servidor");
                 return;
             }
-
+            ThreadStart ts = delegate { atender_servidor(); };
+            atender = new Thread(ts);
+            atender.Start();
         }
 
 
@@ -57,6 +65,7 @@ namespace WindowsFormsApplication1
             server.Send(msg);
 
             // Nos desconectamos
+            atender.Abort();
             this.BackColor = Color.Gray;
             server.Shutdown(SocketShutdown.Both);
             server.Close();
@@ -65,7 +74,7 @@ namespace WindowsFormsApplication1
 
         private void Iniciar_Click(object sender, EventArgs e)
         {
-            string mensaje = "2/" + UsuarioBox.Text + "/" + ContraseñaBox.Text;
+            string mensaje = "3/" + UsuarioBox.Text + "/" + ContraseñaBox.Text;
             // Enviamos al servidor el nombre tecleado
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
@@ -73,41 +82,25 @@ namespace WindowsFormsApplication1
             //Recibimos la respuesta del servidor
             byte[] msg3 = new byte[80];
             server.Receive(msg3);
-            string mensajevuelta;
-            mensajevuelta = Encoding.ASCII.GetString(msg3).Split('\0')[0];
-            if (mensajevuelta == "Correctol")
+            string[] trozos = Encoding.ASCII.GetString(msg3).Split('/');
+
+            int codigo = Convert.ToInt32(trozos[0]);
+
+            string mensaje_1 = trozos[1].Split('\0')[0];
+            
+            if (codigo == 9)
             {
-                MessageBox.Show("Se ha logeado");
+                MessageBox.Show("usuario o contraseña incorrecto");
 
             }
             else
-                MessageBox.Show("Incorrecto");
+                MessageBox.Show("bienvenido: " + mensaje_1);
         }
 
-        private void Salir_Click(object sender, EventArgs e)
-        {
-            string mensaje = "1/" + UsuarioBox.Text + "/" + ContraseñaBox.Text;
-            // Enviamos al servidor el nombre tecleado
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-            server.Send(msg);
-
-            //Recibimos la respuesta del servidor
-            byte[] msg3 = new byte[80];
-            server.Receive(msg3);
-            string mensajevuelta;
-            mensajevuelta = Encoding.ASCII.GetString(msg3).Split('\0')[0];
-            if (mensajevuelta == "Correctol")
-            {
-                MessageBox.Show("Sesion cerrada conrrectamente");
-
-            }
-            else
-                MessageBox.Show("Incorrecto");
-        }
 
         private void Registrar_Click(object sender, EventArgs e)
         {
-            string mensaje = "3/" + UsuarioBox.Text + "/" + ContraseñaBox.Text + "/" + Confirmar_Contra.Text;
+            string mensaje = "4/" + UsuarioBox.Text + "/" + ContraseñaBox.Text + "/" + Confirmar_Contra.Text + "/" + edad.Text;
             // Enviamos al servidor el nombre tecleado
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
@@ -117,13 +110,20 @@ namespace WindowsFormsApplication1
             server.Receive(msg3);
             string mensajevuelta;
             mensajevuelta = Encoding.ASCII.GetString(msg3).Split('\0')[0];
-            if (mensajevuelta == "Correctol")
+            if (mensajevuelta == "11/")
             {
-                MessageBox.Show("Se ha registrado");
+                MessageBox.Show("Las contraseñas no son iguales");
 
             }
-            else
-                MessageBox.Show("Incorrecto");
+            else if (mensajevuelta == "12/")
+            {
+                MessageBox.Show("ya existe un usuario");
+            }
+            else if (mensajevuelta == "13/")
+            {
+                MessageBox.Show("registrado correctamente" + mensajevuelta);
+            }
+
         
         }
 
@@ -139,8 +139,20 @@ namespace WindowsFormsApplication1
                 //Recibimos la respuesta del servidor
                 byte[] msg2 = new byte[80];
                 server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                MessageBox.Show("User Name del Jugador es: " + mensaje);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+
+                int codigo = Convert.ToInt32(trozos[0]);
+
+                string mensaje_1 = trozos[1].Split('\0')[0];
+                
+                if (codigo == 6)
+                {
+                    MessageBox.Show("User Name del Jugador es: " + mensaje_1);
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningun jugador");
+                }
             }
 
 
@@ -154,15 +166,77 @@ namespace WindowsFormsApplication1
                 //Recibimos la respuesta del servidor
                 byte[] msg2 = new byte[80];
                 server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                MessageBox.Show("id de las partidas es: " + mensaje);
+
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+
+                int codigo = Convert.ToInt32(trozos[0]);
+
+                int mensaje_1 =Convert.ToInt32( trozos[1].Split('\0')[0]);
+                
+                
+                if (codigo == 8)
+                {
+                    MessageBox.Show("id de las partidas es: " + mensaje_1);
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningun jugador");
+                }
             }
 
-
+            if (DameConectados.Checked)
+                {
+                    
+                   string mensaje = "5/";
+                   byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                   server.Send(msg);
+                   
+                /*   byte[] msg2 = new byte[80];
+                   server.Receive(msg2);
+                  
+                   string mensaje_1;
+                   mensaje_1 = Encoding.ASCII.GetString(msg2);
+                  string[] conec = mensaje_1.Split('/');
+                   
+                   for (int i = 0; i < conec.Length; i++)
+                   {
+                       dataGridView1.Rows.Add(conec[i]);
+                       
+                   }*/
+                }
 
         }
+        private void atender_servidor()
+        {
+            while (true)
+            {
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
 
-        
+                int codigo = Convert.ToInt32(trozos[0]);
+
+                string mensaje = trozos[1].Split('\0')[0];
+                
+                switch (codigo)
+                {
+                    case 5: //lista conectados 
+
+                   string[] conec = mensaje.Split('/');
+                   MessageBox.Show("conectados: " + mensaje);
+                   
+                  /* for (int i = 0; i < conec.Length; i++)
+                   {
+                       dataGridView1.Rows.Add(conec[i]);
+                       
+                   }*/
+                        
+                        break;
+                }
+            }
+        }
+      
+
     }
 }
 
