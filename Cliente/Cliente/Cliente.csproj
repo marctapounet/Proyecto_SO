@@ -59,22 +59,113 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new ending Dragon ball super.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\registrar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\registrar-el-icono-boton-de-internet-sobre-fondo-blanco-fpmw8x.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\offline_208059751.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\invitar-ilustracion-concepto_114360-337.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rechazar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iniciar_sesion.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inviteee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alert.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcome.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notifi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notificaciones.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_load.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\adios.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rechazar_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notification.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcome_1,jpg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\livechat.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aceptar1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rechazar1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\registraar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connect.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disconnect.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\email.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CLOUDFLARE_REGISTRAR-sans-early-access3_3.5x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CLOUDFLARE_REGISTRAR-sans-early-access3_3.5x1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sad.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
